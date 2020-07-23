@@ -72,7 +72,17 @@ class User
 end
 
 class Notifier
+  def notify(user, message, notifier = EmailNotifier.new)
+    notifier.notify(user, message) if user.notifiable?
+  end
+end
+
+class EmailNotifier
   def notify(user, message)
-    EmailNotifier.new(user, message) if user.notifiable?
+  end
+end
+
+class SmsNotifier
+  def notify(user, message)
   end
 end
