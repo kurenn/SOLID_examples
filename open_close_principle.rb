@@ -33,6 +33,6 @@ end
 
 class Notifier
   def notify(user, message)
-    EmailNotifier.new(user, message) if user.notifiable?
+    EmailNotifier.notify(user, message) if user.notifiable?
   end
 end
