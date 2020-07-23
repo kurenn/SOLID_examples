@@ -1,28 +1,68 @@
 # Software entities should be open for extension, but closed for modification
 
 # Example 1
+
+#Solution 1
 class Payment
+  PAYMENT_GATEWAYS = {
+    'conekta' => PaymentGateway::Conekta
+    'paypal' => PaymentGateway::Paypal
+    'mercado_pago' => PaymentGateway::MercadoPago
+  }.freeze
+
   def initialize(payment_gateway)
     @payment_gateway = payment_gateway
   end
 
   def perform
-    case @payment_gateway
-    when 'conekta'
-      gateway = PaymentGateway::Conekta.new
-      gateway.prepare
-      gateway.pay
-    when 'paypal'
-      gateway = PaymentGateway::Paypal.new
-      gateway.prepare
-      gateway.pay
-    when 'mercado_pago'
-      gateway = PaymentGateway::MercadoPago.new
-      gateway.prepare
-      gateway.pay
-    end
+    gateway = PAYMENT_GATEWAYS[@payment_gateway].new
+    gateway.prepare
+    gateway.pay
   end
 end
+
+#Solution 2
+class Payment
+  def perform(payment_gateway: PaymentGateway::Conekta)
+    payment_gateway.prepare
+    payment_gateway.pay
+  end
+end
+
+class PaymentGateway::Base
+  def prepare
+    raise NotImplementedError
+  end
+
+  def pay
+    raise NotImplementedError
+  end
+end
+
+class PaymentGateway::Conekta
+  def prepare
+  end
+
+  def pay
+  end
+end
+
+class PaymentGateway::Paypal
+  def prepare
+  end
+
+  def pay
+  end
+end
+
+class PaymentGateway::MercadoPago
+  def prepare
+  end
+
+  def pay
+  end
+end
+
 
 # Example 2
 class User
