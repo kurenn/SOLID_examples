@@ -5,12 +5,16 @@
 class Mammal
   def eat
   end
+end
 
-  def walk
+
+class SwimmingMammal
+  def swim
   end
+end
 
-  def can_walk?
-    true
+class FlyingMammal
+  def fly
   end
 end
 
@@ -20,28 +24,17 @@ end
 class Monkey < Mammal
 end
 
-class Whale < Mammal
-  def can_walk?
-    false
-  end
-
-  def swim
-  end
+class Whale < SwimmingMammal
 end
 
-class Bat < Mammal
-  def can_walk?
-    false
-  end
+class Seal < SwimmingMammal
+end
 
-  def fly
-  end
+class Bat < FlyingMammal
 end
 
 def migrate
   mammals.each do |mammal|
-    if mammal.can_walk?
-      mammal.walk
-    end
+    mammal.walk
   end
 end
