@@ -8,12 +8,12 @@ class Mammal
 end
 
 
-class SwimmingMammal
+module SwimmingMammal
   def swim
   end
 end
 
-class FlyingMammal
+module FlyingMammal
   def fly
   end
 end
@@ -24,13 +24,16 @@ end
 class Monkey < Mammal
 end
 
-class Whale < SwimmingMammal
+class Whale < Mammal
+  include SwimmingMammal
 end
 
-class Seal < SwimmingMammal
+class Seal < Mammal
+  include SwimmingMammal
 end
 
-class Bat < FlyingMammal
+class Bat < Mammal
+  include FlyingMammal
 end
 
 def migrate
