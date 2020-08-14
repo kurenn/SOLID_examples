@@ -8,6 +8,10 @@ class Mammal
 
   def walk
   end
+
+  def can_walk?
+    true
+  end
 end
 
 class Lion < Mammal
@@ -16,8 +20,28 @@ end
 class Monkey < Mammal
 end
 
+class Whale < Mammal
+  def can_walk?
+    false
+  end
+
+  def swim
+  end
+end
+
+class Bat < Mammal
+  def can_walk?
+    false
+  end
+
+  def fly
+  end
+end
+
 def migrate
   mammals.each do |mammal|
-    mammal.walk
+    if mammal.can_walk?
+      mammal.walk
+    end
   end
 end
