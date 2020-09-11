@@ -36,4 +36,16 @@ class Rider
 end
 
 class Mechanic
+  def change_oil(oil_changeable)
+    oil_changeable.change_oil
+  end
+
+  def charge_battery(chargeable)
+    if chargeable.respond_to? :charge_battery
+      chargeable.remove_seat
+      chargeable.charge_battery
+    else
+      raise StandardError, "Object must be Chargeable"
+    end
+  end
 end
