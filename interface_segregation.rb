@@ -11,6 +11,10 @@ class ElectricBike
   include Chargeable
 end
 
+class Bicycle
+  include Rideable
+end
+
 module OilChangeable
   def change_oil
   end
