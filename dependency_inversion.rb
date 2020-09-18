@@ -4,7 +4,13 @@ class Server
   attr_accessor :provider
 
   def create
-    Heroku.create
+    case provider do
+    when "heroku"
+      Heroku.create
+    when "aws"
+      node = AWS.create
+      node.setup_ssh_access
+    end
   end
 end
 
