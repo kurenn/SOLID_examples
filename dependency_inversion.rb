@@ -1,4 +1,5 @@
 # High-level modules should not depend on low-level modules. Both should depend on abstractions (e.g. interfaces).
+# Inspired by Chris Oliver @excid3
 
 class Server
   attr_accessor :provider
@@ -29,14 +30,32 @@ module Hosting
   end
 end
 
+class ServerCreatorJob
+  def perform(server)
+    provider_klass = "Hosting::#{server.provider.classify}".constantize
+    ServerCreator.new(server).perform(provider_klass)
+  end
+end
+
 class ServerCreator
   def initialize(server)
     @server = server
   end
 
-  def perform
-    provider_klass = "Hosting::#{server.provider.classify}".constantize
-    provider_klass.new.create
+  def perform(provider)
+    provider.new.create
+  end
+end
+
+class FakeProvider
+  def create
+    # return maybe a json response
+  end
+end
+
+class FailingProvider
+  def create
+    raise StandardError
   end
 end
 
